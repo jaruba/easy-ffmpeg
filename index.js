@@ -9,8 +9,11 @@ var arch = process.platform === 'darwin' ? 'x64' : 'ia32'
 var ext = process.platform === 'win32' ? '.exe' : ''
 
 try {
-  var ffmpeg = path.join(__dirname, 'ffmpeg', process.platform, arch, 'ffmpeg' + ext)
-  var ffprobe = path.join(__dirname, 'ffmpeg', process.platform, arch, 'ffprobe' + ext)
+
+  var binDir = path.resolve(__dirname, '../../..');
+
+  var ffmpeg = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffmpeg' + ext)
+  var ffprobe = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffprobe' + ext)
   // this checks if the ffmpeg folder exists in our repo, if it doesn't it will return an error
   fs.accessSync(ffmpeg, fs.F_OK)
   fs.accessSync(ffprobe, fs.F_OK)

@@ -1,6 +1,7 @@
 var tarball = require('tarball-extract')
 var request = require('request')
 var fs = require('fs')
+var path = require('path');
 
 var user = 'konsumer'
 var tag = '0.0.13'
@@ -13,6 +14,12 @@ function downloader () {
   // if no ffmpeg and ffprobe are found installed
   // we will download the one for our platform
 
+  var binDir = path.resolve(__dirname, '../../..', 'bin');
+
+  if (!fs.existsSync(binDir)){
+	fs.mkdirSync(binDir);
+  }
+
   var url = 'https://github.com/' + user + '/' + repoName + '/releases/download/' + tag + '/' + pkg
 
   request
@@ -22,7 +29,7 @@ function downloader () {
     })
     .pipe(fs.createWriteStream(pkg))
     .on('close', function () {
-      tarball.extractTarball(pkg, __dirname, function (err, result) {
+      tarball.extractTarball(pkg, binDir, function (err, result) {
         if (err) {
           throw err
         }
