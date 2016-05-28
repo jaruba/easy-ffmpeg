@@ -14,7 +14,7 @@ function downloader () {
   // if no ffmpeg and ffprobe are found installed
   // we will download the one for our platform
 
-  var binDir = path.resolve(__dirname, '../../..', 'bin');
+  var binDir = path.resolve(__dirname, '../..', 'bin');
 
   if (!fs.existsSync(binDir)){
 	fs.mkdirSync(binDir);
