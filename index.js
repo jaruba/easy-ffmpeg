@@ -10,11 +10,14 @@ var ext = process.platform === 'win32' ? '.exe' : ''
 
 try {
 
-  var binDir = path.resolve(__dirname, '../..', 'bin');
+  var back = '../..';
+  var binDir = path.resolve(__dirname, back, 'bin');
 
   // in case of asar, go one level down
-  if (!fs.existsSync(binDir))
-    var binDir = path.resolve(__dirname, '../../..', 'bin');
+  while (binDir.includes('/app.asar/') || binDir.includes('\\app.asar\\')) {
+      back += '../'
+      binDir = path.resolve(__dirname, back, 'bin');
+  }
 
   var ffmpeg = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffmpeg' + ext)
   var ffprobe = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffprobe' + ext)
