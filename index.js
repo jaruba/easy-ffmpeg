@@ -15,7 +15,7 @@ try {
 
   // in case of asar, go one level down
   while (binDir.includes('/app.asar/') || binDir.includes('\\app.asar\\')) {
-      back += '../'
+      back += '/..'
       binDir = path.resolve(__dirname, back, 'bin');
   }
 
