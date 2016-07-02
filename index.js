@@ -18,13 +18,15 @@ try {
       back += '/..'
       binDir = path.resolve(__dirname, back, 'bin');
   }
+  
+  // for safety
+  if (!fs.existsSync(binDir)) {
+      back += '/..'
+      binDir = path.resolve(__dirname, back, 'bin');
+  }
 
   var ffmpeg = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffmpeg' + ext)
   var ffprobe = path.join(binDir, 'ffmpeg', process.platform, arch, 'ffprobe' + ext)
-console.log('ffmpeg path');
-console.log(ffmpeg);
-console.log('ffprobe path');
-console.log(ffprobe);
   // this checks if the ffmpeg folder exists in our repo, if it doesn't it will return an error
   fs.accessSync(ffmpeg, fs.F_OK)
   fs.accessSync(ffprobe, fs.F_OK)
